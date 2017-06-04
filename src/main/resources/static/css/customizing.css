@@ -1,0 +1,11 @@
+.login-wrapper {
+    max-width: 420px;
+    padding: 30px 38px 66px;
+    margin: 80px auto 20px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
+
+.login-wrapper hr {
+    border-top-color: #ccc;
+}

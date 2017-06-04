@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AuditedSqlConsoleApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuditedSqlConsoleApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }

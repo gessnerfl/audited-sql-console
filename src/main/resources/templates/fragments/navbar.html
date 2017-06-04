@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css}"></link>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap-theme.min.css}"></link>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+	<nav th:fragment="navbar" class="custom-bootstrap-menu navbar navbar-inverse navbar-fixed-top">
+	    <div class="container-fluid">
+      		<a class="navbar-brand" href="#"><img alt="Application Icon" src="/images/application-icon.png" width="24px" height="24px" style="display: inline-block"/>&nbsp;Audited SQL Console</a>
+            <form th:action="@{/logout}" method="post" class="navbar-form navbar-right" sec:authorize="isAuthenticated()">
+                <button type="submit" class="btn btn-link">Logout</button>
+            </form>
+      	</div>
+	</nav>
+</body>
+</html>

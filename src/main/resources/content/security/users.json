@@ -1,0 +1,13 @@
+[
+  {
+    "username": "tester",
+    "passwordHash": "$2a$10$JJOR5E1ID5RwLFlbl.r6de9wTZGyUFU.7eX1Vqyg.ce1rTIpHgxf6"
+  },
+  {
+    "username": "approver",
+    "passwordHash": "$2a$10$JJOR5E1ID5RwLFlbl.r6de9wTZGyUFU.7eX1Vqyg.ce1rTIpHgxf6",
+    "roles": [
+      "USER"
+    ]
+  }
+]

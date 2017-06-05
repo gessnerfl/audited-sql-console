@@ -1,0 +1,31 @@
+language: java
+
+jdk:
+- oraclejdk8
+
+sudo: false
+
+addons:
+  sonarqube:
+    organization: "gessnerfl-github"
+    token:
+      secure: "cDzliZDO0J/ccevd7Tv15HqeQVHuHeKNJUpOaGpxtYpbxIYAivalGg0IsoXJEyEe51zfk2VlXByTR3kJGq+5ueUt7/gTMjzef5sSUcmeu11560qf4rgudHOAzSzB2IY8Qk66JiZtYxROrWbI9kE/4bZh5aHUAjfS63Z0Z0adE+sNAoCVFAgoV/56doz5bMtXDplZ2q1MJJ8cHul6/4f1rPmbrlFwsKl7H1g3GLBobDT4gnG6bUDfUunBv6+DVonVgFXobUutiJNXPwcvbXU1UN9Df2JWz+Mu1TLfeROLw16g0RvUV0dQGziKF2GkBSoAkR7tHE4K8qezaqKZdIEaCkcVhA4EY3HfHkltX8wrlo5sztBHeoRkP/1l1MSVMTZwNS0fNA3JGXT/CSufOigVSDY9B3+jcOqi4xzDnT0RIIbc6fL4JGkNMit5gRVaerM6f1UZhp3Mx0xBBc9heGw0QuHqDrc8WAof4HZm2zTfkNcmgXEqBzWLgdfZj4KHi0AhfNktgdige0icMlcU2fBVckuX0PCQXHhpb4SrcCmybL6wdO5B1oQL+qR/zVPVMnLYFa4ikZEC47XmyXETA3AIhm8CHrHvAmTY5mX6mUcfQIDSpYlOyDMhoD56mnoxZD9gmdUVVOdBOtZLElO1jNYsEU3qwH7DIa/jc8BZXkgEFP4="
+    branches:
+      - master
+
+before_script:
+- chmod +x gradlew
+
+script:
+ - ./gradlew build sonarqube
+
+notifications:
+  email: false
+
+deploy:
+  provider: releases
+  api_key:
+    secure: mhyjsIfaJUSs+6tDQU3cGH7/N+9gtEX7d+p3i2D7DCtxq1nORLkw1dnTZFmKLRuhQ4m/fxl7i0JJx7g+EY/VSjOoDUcNO5yVSrGM6iFXbHkR94SsODQO2gXJgxj4DNIJBZF/8YkNTPfFBogb+n3Zcj2heD2ysmlOgKaCK6ocVFXQK8BAVi90g8EhB5capxEbSfxHIkDuzuZlut7eJEszJSOsQMyohRTKPe97ci8A2S7q4qyV5kFKYBFKZkmjvddxdEN9vXiyB+Qzvnoi54wcFBV92ySngVtXit3a9dnb5XFlIcv6csm83+TrpCOS4Yenkaar4OjgHoAmyAp3W8vi5kQRWPIYmxeeV2PSBGQCEU48req9S1uLm6SCulnLdqQ8BPjd9ede5QZpMM7IkcH7VZ86+KyfaoHlNENCE9gCbU17LmRKlI0MDCOKA/JMkRRe3AwywPDsEYGSacBcxSpS41Vnqg4AA2LtuN/qXZmbNjNy27xIeYoRhJK4IUTinO0xKYOmCVFbLjFL56oKw43xMqeD9yXlAZk6hvu9IrUbBFZQzwXnYxNdULmYAlaCE26yQBK9nyC017D20bvYDRxSZzCm5/N57FkJLg6g9lHJ2PsZkvkkkgvoHOGJFXFdNkTshfXigvRTj94BTa857HmeuQRwWvrV2Dh83U2aNonAoZc=
+  file: build/libs/audited-sql-console-$TRAVIS_TAG.jar
+  on:
+    tags: true

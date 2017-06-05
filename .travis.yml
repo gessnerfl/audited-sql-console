@@ -14,10 +14,10 @@ addons:
       - master
 
 before_script:
-- chmod +x gradlew
+- chmod +x buildViaTravisCI.sh
 
 script:
- - ./gradlew build sonarqube
+ - ./buildViaTravisCI.sh
 
 notifications:
   email: false

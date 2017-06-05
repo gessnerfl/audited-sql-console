@@ -1,5 +1,7 @@
 # mysql-jdbc-benchmark
 
+[![Build Status](https://travis-ci.org/gessnerfl/audited-sql-console.svg?branch=master)](https://travis-ci.org/gessnerfl/audited-sql-console)
+
 ## Configuration
 
 ```

@@ -138,6 +138,22 @@ public class FileAuthenticationModuleConfigurerTest {
         sut.configure(authenticationConfig, authenticationManagerBuilder);
     }
 
+    @Test(expected = InvalidConfigurationException.class)
+    public void shouldThrowExceptionWhenInputSteamCannotBeClosed() throws Exception{
+        final Resource resource = mock(Resource.class);
+        final InputStream is = mock(InputStream.class);
+
+        when(authenticationConfig.getFile()).thenReturn(fileAuthenticationConfig);
+        when(fileAuthenticationConfig.getLocation()).thenReturn(FILE_PATH);
+        when(resourceLoader.getResource(FILE_PATH)).thenReturn(resource);
+        when(resource.exists()).thenReturn(true);
+        when(resource.getInputStream()).thenReturn(is);
+        when(objectMapper.readValue(is, UserModel[].class)).thenReturn(new UserModel[0]);
+        doThrow(new IOException("foo")).when(is).close();
+
+        sut.configure(authenticationConfig, authenticationManagerBuilder);
+    }
+
     @Test
     public void shouldSilentlyContinueWhenNoUserIsDefined() throws Exception {
         final InputStream is = mock(InputStream.class);

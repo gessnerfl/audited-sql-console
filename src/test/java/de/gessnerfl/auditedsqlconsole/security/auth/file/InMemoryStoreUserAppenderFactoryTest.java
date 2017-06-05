@@ -27,18 +27,22 @@ public class InMemoryStoreUserAppenderFactoryTest {
     @InjectMocks
     private InMemoryStoreUserAppenderFactory sut;
 
-    @Before
-    public void init() throws Exception {
-        when(authenticationManagerBuilder.inMemoryAuthentication()).thenReturn(inMemoryUserDetailsManagerConfigurer);
-    }
-
     @Test
     public void shouldConfigureBCryptPasswordEncoderAndReturnThenAppenderInstance() throws Exception {
+        when(authenticationManagerBuilder.inMemoryAuthentication()).thenReturn(inMemoryUserDetailsManagerConfigurer);
+
         InMemoryStoreUserAppender result = sut.createFor(authenticationManagerBuilder);
 
         assertNotNull(result);
         assertEquals(inMemoryUserDetailsManagerConfigurer, result.inMemoryUserDetailsManagerConfigurer);
         verify(inMemoryUserDetailsManagerConfigurer).passwordEncoder(bCryptPasswordEncoder);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void shouldThrowExceptionWhenInMemoryUserDetailsManagerCannotBeInitialized() throws Exception {
+        when(authenticationManagerBuilder.inMemoryAuthentication()).thenThrow(new Exception("foo"));
+
+        sut.createFor(authenticationManagerBuilder);
     }
 
 }

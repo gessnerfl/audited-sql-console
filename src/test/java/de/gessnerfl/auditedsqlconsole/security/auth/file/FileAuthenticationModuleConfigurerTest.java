@@ -1,5 +1,7 @@
 package de.gessnerfl.auditedsqlconsole.security.auth.file;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gessnerfl.auditedsqlconsole.config.InvalidConfigurationException;
 import de.gessnerfl.auditedsqlconsole.config.security.AuthenticationConfig;
@@ -124,7 +126,7 @@ public class FileAuthenticationModuleConfigurerTest {
     }
 
     @Test(expected = InvalidConfigurationException.class)
-    public void shouldThrowExceptionWhenUserFileCannotBeMappedToJson() throws Exception{
+    public void shouldThrowExceptionWhenUserFileCannotBeReadDuringObjecMapping() throws Exception{
         final Resource resource = mock(Resource.class);
         final InputStream is = mock(InputStream.class);
 
@@ -134,6 +136,38 @@ public class FileAuthenticationModuleConfigurerTest {
         when(resource.exists()).thenReturn(true);
         when(resource.getInputStream()).thenReturn(is);
         when(objectMapper.readValue(is, UserModel[].class)).thenThrow(new IOException());
+
+        sut.configure(authenticationConfig, authenticationManagerBuilder);
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void shouldThrowExceptionWhenJsonOfUserFileCannotBeParsed() throws Exception{
+        final Resource resource = mock(Resource.class);
+        final InputStream is = mock(InputStream.class);
+        final JsonParseException jsonParseException = mock(JsonParseException.class);
+
+        when(authenticationConfig.getFile()).thenReturn(fileAuthenticationConfig);
+        when(fileAuthenticationConfig.getLocation()).thenReturn(FILE_PATH);
+        when(resourceLoader.getResource(FILE_PATH)).thenReturn(resource);
+        when(resource.exists()).thenReturn(true);
+        when(resource.getInputStream()).thenReturn(is);
+        when(objectMapper.readValue(is, UserModel[].class)).thenThrow(jsonParseException);
+
+        sut.configure(authenticationConfig, authenticationManagerBuilder);
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void shouldThrowExceptionWhenJsonOfUserFileCannotBeMapped() throws Exception{
+        final Resource resource = mock(Resource.class);
+        final InputStream is = mock(InputStream.class);
+        final JsonMappingException jsonMappingException = mock(JsonMappingException.class);
+
+        when(authenticationConfig.getFile()).thenReturn(fileAuthenticationConfig);
+        when(fileAuthenticationConfig.getLocation()).thenReturn(FILE_PATH);
+        when(resourceLoader.getResource(FILE_PATH)).thenReturn(resource);
+        when(resource.exists()).thenReturn(true);
+        when(resource.getInputStream()).thenReturn(is);
+        when(objectMapper.readValue(is, UserModel[].class)).thenThrow(jsonMappingException);
 
         sut.configure(authenticationConfig, authenticationManagerBuilder);
     }

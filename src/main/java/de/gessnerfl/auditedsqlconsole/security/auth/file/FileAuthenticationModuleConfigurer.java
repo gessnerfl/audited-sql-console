@@ -5,6 +5,7 @@ import de.gessnerfl.auditedsqlconsole.config.InvalidConfigurationException;
 import de.gessnerfl.auditedsqlconsole.config.security.AuthenticationConfig;
 import de.gessnerfl.auditedsqlconsole.config.security.AuthenticationType;
 import de.gessnerfl.auditedsqlconsole.config.security.FileAuthenticationConfig;
+import de.gessnerfl.auditedsqlconsole.security.auth.AuthenticationConfigurationException;
 import de.gessnerfl.auditedsqlconsole.security.auth.AuthenticationModuleConfigurer;
 import de.gessnerfl.auditedsqlconsole.security.auth.RoleType;
 import de.gessnerfl.auditedsqlconsole.security.auth.file.model.UserModel;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -51,13 +51,15 @@ public class FileAuthenticationModuleConfigurer implements AuthenticationModuleC
     }
 
     @Override
-    public void configure(AuthenticationConfig authenticationConfig, AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    public void configure(AuthenticationConfig authenticationConfig, AuthenticationManagerBuilder authenticationManagerBuilder) {
         logger.info("Configure authentication with authentication module FILE");
         try(InputStream inputStream = readFile(authenticationConfig)) {
             Stream<UserModel> userModels = mapFile(inputStream);
 
             InMemoryStoreUserAppender inMemoryStoreUserAppender = inMemoryStoreUserAppenderFactory.createFor(authenticationManagerBuilder);
             userModels.forEach(m -> configureUser(inMemoryStoreUserAppender, m));
+        }catch (IOException e){
+            throw new InvalidConfigurationException("Failed to read or map user file to data model", e);
         }
     }
 

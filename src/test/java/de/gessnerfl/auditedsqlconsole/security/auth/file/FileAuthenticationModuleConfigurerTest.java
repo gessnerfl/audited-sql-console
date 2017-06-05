@@ -19,6 +19,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
@@ -105,6 +106,34 @@ public class FileAuthenticationModuleConfigurerTest {
         when(fileAuthenticationConfig.getLocation()).thenReturn(FILE_PATH);
         when(resourceLoader.getResource(FILE_PATH)).thenReturn(resource);
         when(resource.exists()).thenReturn(false);
+
+        sut.configure(authenticationConfig, authenticationManagerBuilder);
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void shouldThrowExceptionWhenUserFileCannotBeRead() throws Exception{
+        final Resource resource = mock(Resource.class);
+
+        when(authenticationConfig.getFile()).thenReturn(fileAuthenticationConfig);
+        when(fileAuthenticationConfig.getLocation()).thenReturn(FILE_PATH);
+        when(resourceLoader.getResource(FILE_PATH)).thenReturn(resource);
+        when(resource.exists()).thenReturn(true);
+        when(resource.getInputStream()).thenThrow(new IOException());
+
+        sut.configure(authenticationConfig, authenticationManagerBuilder);
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void shouldThrowExceptionWhenUserFileCannotBeMappedToJson() throws Exception{
+        final Resource resource = mock(Resource.class);
+        final InputStream is = mock(InputStream.class);
+
+        when(authenticationConfig.getFile()).thenReturn(fileAuthenticationConfig);
+        when(fileAuthenticationConfig.getLocation()).thenReturn(FILE_PATH);
+        when(resourceLoader.getResource(FILE_PATH)).thenReturn(resource);
+        when(resource.exists()).thenReturn(true);
+        when(resource.getInputStream()).thenReturn(is);
+        when(objectMapper.readValue(is, UserModel[].class)).thenThrow(new IOException());
 
         sut.configure(authenticationConfig, authenticationManagerBuilder);
     }

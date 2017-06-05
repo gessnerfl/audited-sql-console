@@ -21,7 +21,7 @@ public class AuthenticationConfigurer {
         this.moduleConfigurers = moduleConfigurers;
     }
 
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+    public void configure(AuthenticationManagerBuilder auth) {
         AuthenticationModuleConfigurer moduleConfigurer = getModuleConfigurer();
         moduleConfigurer.configure(customConfigurationProperties.getSecurity().getAuth(), auth);
     }

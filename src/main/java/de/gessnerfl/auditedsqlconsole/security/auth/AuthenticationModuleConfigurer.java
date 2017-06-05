@@ -6,5 +6,5 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 
 public interface AuthenticationModuleConfigurer {
     AuthenticationType getType();
-    void configure(AuthenticationConfig authenticationConfig, AuthenticationManagerBuilder auth) throws Exception;
+    void configure(AuthenticationConfig authenticationConfig, AuthenticationManagerBuilder auth);
 }

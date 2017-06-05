@@ -19,6 +19,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import javax.xml.bind.ValidationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -168,6 +169,27 @@ public class FileAuthenticationModuleConfigurerTest {
 
         sut.configure(authenticationConfig, authenticationManagerBuilder);
 
+        verify(inMemoryStoreUserAppender, never()).append(anyString(), anyString(), anyListOf(GrantedAuthority.class));
+    }
+
+    @Test
+    public void shouldLogErrorAndSkipUserWhenUserModelIsNotValid() throws Exception {
+        final UserModel user = mock(UserModel.class);
+        final InputStream is = mock(InputStream.class);
+        final Resource resource = mock(Resource.class);
+        final ValidationException validationException = new ValidationException("foo");
+
+        doThrow(validationException).when(user).validate();
+        when(authenticationConfig.getFile()).thenReturn(fileAuthenticationConfig);
+        when(fileAuthenticationConfig.getLocation()).thenReturn(FILE_PATH);
+        when(resourceLoader.getResource(FILE_PATH)).thenReturn(resource);
+        when(resource.exists()).thenReturn(true);
+        when(resource.getInputStream()).thenReturn(is);
+        when(objectMapper.readValue(is, UserModel[].class)).thenReturn(new UserModel[]{user});
+
+        sut.configure(authenticationConfig, authenticationManagerBuilder);
+
+        verify(logger).error(anyString(), eq(validationException));
         verify(inMemoryStoreUserAppender, never()).append(anyString(), anyString(), anyListOf(GrantedAuthority.class));
     }
 }

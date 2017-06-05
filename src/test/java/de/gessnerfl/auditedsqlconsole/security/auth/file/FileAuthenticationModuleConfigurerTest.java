@@ -19,7 +19,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import javax.xml.bind.ValidationException;
+import javax.validation.ValidationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -177,7 +177,8 @@ public class FileAuthenticationModuleConfigurerTest {
         final UserModel user = mock(UserModel.class);
         final InputStream is = mock(InputStream.class);
         final Resource resource = mock(Resource.class);
-        final ValidationException validationException = new ValidationException("foo");
+        final String validationMessage = "validationMessage";
+        final ValidationException validationException = new ValidationException(validationMessage);
 
         doThrow(validationException).when(user).validate();
         when(authenticationConfig.getFile()).thenReturn(fileAuthenticationConfig);
@@ -189,7 +190,7 @@ public class FileAuthenticationModuleConfigurerTest {
 
         sut.configure(authenticationConfig, authenticationManagerBuilder);
 
-        verify(logger).error(anyString(), eq(validationException));
+        verify(logger).error(anyString(), eq(user), eq(validationMessage));
         verify(inMemoryStoreUserAppender, never()).append(anyString(), anyString(), anyListOf(GrantedAuthority.class));
     }
 }

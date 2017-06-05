@@ -5,7 +5,6 @@ import de.gessnerfl.auditedsqlconsole.config.InvalidConfigurationException;
 import de.gessnerfl.auditedsqlconsole.config.security.AuthenticationConfig;
 import de.gessnerfl.auditedsqlconsole.config.security.AuthenticationType;
 import de.gessnerfl.auditedsqlconsole.config.security.FileAuthenticationConfig;
-import de.gessnerfl.auditedsqlconsole.security.auth.AuthenticationConfigurationException;
 import de.gessnerfl.auditedsqlconsole.security.auth.AuthenticationModuleConfigurer;
 import de.gessnerfl.auditedsqlconsole.security.auth.RoleType;
 import de.gessnerfl.auditedsqlconsole.security.auth.file.model.UserModel;

@@ -1,19 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css}" />
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap-theme.min.css}" />
-	
-	<link rel="stylesheet" th:href="@{/css/customizing.css}" />
 
-	<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
-	<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js}"></script>
-	
-	<title>Audited SQL Console</title>
-
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
+<head th:replace="fragments/pageHead :: pageHeadFragment (page='Home')"></head>
 
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
@@ -27,7 +15,9 @@
    		</div>
    		<div class="row">
     		<div class="col-xs-12">
-    			<h1>Welcome</h1>
+                <p>
+                    <button type="button" class="btn btn-default btn-lg"><i class="fa fa-commenting-o"></i>&nbsp;Create Request</button>
+                </p>
     		</div>
    		</div>
     </div>

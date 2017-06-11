@@ -1,6 +1,6 @@
 package de.gessnerfl.auditedsqlconsole.javaconfig;
 
-import de.gessnerfl.auditedsqlconsole.security.auth.AuthenticationConfigurer;
+import de.gessnerfl.auditedsqlconsole.service.security.auth.AuthenticationConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

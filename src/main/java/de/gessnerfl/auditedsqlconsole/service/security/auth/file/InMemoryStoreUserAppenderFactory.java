@@ -1,4 +1,4 @@
-package de.gessnerfl.auditedsqlconsole.security.auth.file;
+package de.gessnerfl.auditedsqlconsole.service.security.auth.file;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

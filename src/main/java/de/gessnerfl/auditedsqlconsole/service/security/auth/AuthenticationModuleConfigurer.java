@@ -1,4 +1,4 @@
-package de.gessnerfl.auditedsqlconsole.security.auth;
+package de.gessnerfl.auditedsqlconsole.service.security.auth;
 
 import de.gessnerfl.auditedsqlconsole.config.security.AuthenticationConfig;
 import de.gessnerfl.auditedsqlconsole.config.security.AuthenticationType;

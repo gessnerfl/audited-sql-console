@@ -1,6 +1,5 @@
-package de.gessnerfl.auditedsqlconsole.security.auth.file;
+package de.gessnerfl.auditedsqlconsole.service.security.auth.file;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

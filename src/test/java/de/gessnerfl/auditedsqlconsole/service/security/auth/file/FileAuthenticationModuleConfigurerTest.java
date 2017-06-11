@@ -1,4 +1,4 @@
-package de.gessnerfl.auditedsqlconsole.security.auth.file;
+package de.gessnerfl.auditedsqlconsole.service.security.auth.file;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gessnerfl.auditedsqlconsole.config.InvalidConfigurationException;
 import de.gessnerfl.auditedsqlconsole.config.security.AuthenticationConfig;
 import de.gessnerfl.auditedsqlconsole.config.security.FileAuthenticationConfig;
-import de.gessnerfl.auditedsqlconsole.security.auth.RoleType;
-import de.gessnerfl.auditedsqlconsole.security.auth.file.model.UserModel;
+import de.gessnerfl.auditedsqlconsole.service.security.auth.RoleType;
+import de.gessnerfl.auditedsqlconsole.service.security.auth.file.model.UserModel;
 import de.gessnerfl.auditedsqlconsole.utils.json.ObjectMapperFactory;
 import org.junit.Before;
 import org.junit.Test;

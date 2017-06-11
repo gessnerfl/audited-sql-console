@@ -1,4 +1,4 @@
-package de.gessnerfl.auditedsqlconsole.security.auth;
+package de.gessnerfl.auditedsqlconsole.service.security.auth;
 
 import de.gessnerfl.auditedsqlconsole.config.CustomConfigurationProperties;
 import de.gessnerfl.auditedsqlconsole.config.security.AuthenticationConfig;
@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 
 import java.util.Collections;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

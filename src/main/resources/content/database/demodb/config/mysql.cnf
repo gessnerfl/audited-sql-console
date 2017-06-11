@@ -1,0 +1,16 @@
+[mysqld]
+explicit_defaults_for_timestamp = 1
+sql-mode="STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION"
+max_allowed_packet=1073741824
+max_digest_length=20240
+performance_schema_max_sql_text_length=20240
+performance_schema_max_digest_length=20240
+
+collation_server=utf8_general_ci
+character_set_server=utf8
+
+# put general-log (SQL statements, ...) onto the docker host
+general_log=0
+general_log_file=/var/lib/mysql/general-log-file.log
+slow_query_log=1
+slow_query_log_file=/var/lib/mysql/slow-query.log

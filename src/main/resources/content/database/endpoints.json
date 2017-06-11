@@ -1,0 +1,12 @@
+[
+  {
+    "title" : "Demo Database",
+    "connectionUrl" : "",
+    "user" : "root",
+    "password" : "Test1234",
+    "schemas" : [
+      "skila",
+      "classicmodels"
+    ]
+  }
+]

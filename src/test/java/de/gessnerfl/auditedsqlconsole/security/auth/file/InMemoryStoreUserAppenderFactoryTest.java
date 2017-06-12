@@ -1,4 +1,4 @@
-package de.gessnerfl.auditedsqlconsole.service.security.auth.file;
+package de.gessnerfl.auditedsqlconsole.security.auth.file;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

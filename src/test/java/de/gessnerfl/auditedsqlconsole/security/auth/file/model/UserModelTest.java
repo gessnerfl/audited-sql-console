@@ -1,4 +1,4 @@
-package de.gessnerfl.auditedsqlconsole.service.security.auth.file.model;
+package de.gessnerfl.auditedsqlconsole.security.auth.file.model;
 
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
-package de.gessnerfl.auditedsqlconsole.service.security.auth.file.model;
+package de.gessnerfl.auditedsqlconsole.security.auth.file.model;
 
-import de.gessnerfl.auditedsqlconsole.service.security.auth.RoleType;
+import de.gessnerfl.auditedsqlconsole.security.auth.RoleType;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.ValidationException;

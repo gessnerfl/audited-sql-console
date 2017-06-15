@@ -1,0 +1,12 @@
+version 2:
+
+services:
+  mongodb:
+    image: mongo:3.4
+    container_name: adbc_mongodb
+    hostname: mongo
+    ports:
+     - "27017:27017"
+    volumes:
+     - ./run/mongodb/data:/data/db
+

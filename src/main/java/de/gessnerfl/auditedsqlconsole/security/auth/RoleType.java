@@ -1,5 +1,5 @@
 package de.gessnerfl.auditedsqlconsole.security.auth;
 
 public enum RoleType {
-    USER, APPROVER, AUDITOR
+    USER, APPROVER, AUDITOR, ADMIN
 }

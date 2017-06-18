@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css}"></link>
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap-theme.min.css}"></link>
@@ -8,12 +9,35 @@
 </head>
 
 <body>
-	<nav th:fragment="navbar" class="custom-bootstrap-menu navbar navbar-inverse navbar-fixed-top">
+	<nav th:fragment="navbar (pageId)" class="custom-bootstrap-menu navbar navbar-inverse navbar-fixed-top">
 	    <div class="container-fluid">
-      		<a class="navbar-brand" href="#"><img alt="Application Icon" src="/images/application-icon.png" width="24px" height="24px" style="display: inline-block"/>&nbsp;Audited SQL Console</a>
-            <form th:action="@{/logout}" method="post" class="navbar-form navbar-right" sec:authorize="isAuthenticated()">
-                <button type="submit" class="btn btn-link">Logout</button>
-            </form>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" sec:authorize="isAuthenticated()">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><img alt="Application Icon" src="/images/application-icon.png" width="24px" height="24px" style="display: inline-block"/>&nbsp;Audited SQL Console</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" sec:authorize="isAuthenticated()">
+                <ul class="nav navbar-nav">
+                    <li th:class="${#strings.equals(pageId,'index')} ? active : ''"><a th:href="@{/index}" aria-label="Home"><i class="fa fa-home"></i><span>&nbsp;Home</span></a></li>
+
+                    <li sec:authorize="hasAuthority('ROLE_ADMIN')" th:class="${#strings.startsWith(pageId,'admin-')} ? active : ''" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" aria-label="Administration"><i class="fa fa-wrench"></i><span>&nbsp;Administration</span><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/admin/database}" aria-label="Database Connections">Database Connections</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form th:action="@{/logout}" method="post" class="navbar-form navbar-right" sec:authorize="isAuthenticated()">
+                    <button type="submit" class="btn btn-link">Logout</button>
+                </form>
+            </div>
       	</div>
 	</nav>
 </body>

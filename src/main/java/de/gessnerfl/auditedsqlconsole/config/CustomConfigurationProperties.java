@@ -12,8 +12,6 @@ public class CustomConfigurationProperties {
 
     @NotNull
     private SecurityConfig security;
-    @NotNull
-    private DatabaseEndpointsConfig databaseEndpoints;
 
     public SecurityConfig getSecurity() {
         return security;
@@ -21,13 +19,5 @@ public class CustomConfigurationProperties {
 
     public void setSecurity(SecurityConfig security) {
         this.security = security;
-    }
-
-    public DatabaseEndpointsConfig getDatabaseEndpoints() {
-        return databaseEndpoints;
-    }
-
-    public void setDatabaseEndpoints(DatabaseEndpointsConfig databaseEndpoints) {
-        this.databaseEndpoints = databaseEndpoints;
     }
 }
